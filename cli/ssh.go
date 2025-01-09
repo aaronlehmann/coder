@@ -56,6 +56,7 @@ var (
 func (r *RootCmd) ssh() *serpent.Command {
 	var (
 		stdio            bool
+		hostPrefix       string
 		forwardAgent     bool
 		forwardGPG       bool
 		identityAgent    string
@@ -180,7 +181,11 @@ func (r *RootCmd) ssh() *serpent.Command {
 				parsedEnv = append(parsedEnv, [2]string{k, v})
 			}
 
-			workspace, workspaceAgent, err := getWorkspaceAndAgent(ctx, inv, client, !disableAutostart, inv.Args[0])
+			namedWorkspace := strings.TrimPrefix(inv.Args[0], hostPrefix)
+			// Support "--" as a delimiter between owner and workspace name
+			namedWorkspace = strings.ReplaceAll(namedWorkspace, "--", "/")
+
+			workspace, workspaceAgent, err := getWorkspaceAndAgent(ctx, inv, client, !disableAutostart, namedWorkspace)
 			if err != nil {
 				return err
 			}
@@ -476,6 +481,12 @@ func (r *RootCmd) ssh() *serpent.Command {
 			Env:         "CODER_SSH_STDIO",
 			Description: "Specifies whether to emit SSH output over stdin/stdout.",
 			Value:       serpent.BoolOf(&stdio),
+		},
+		{
+			Flag:        "ssh-host-prefix",
+			Env:         "CODER_CONFIGSSH_SSH_HOST_PREFIX",
+			Description: "Strip this prefix from the provided hostname to determine the workspace name.",
+			Value:       serpent.StringOf(&hostPrefix),
 		},
 		{
 			Flag:          "forward-agent",
