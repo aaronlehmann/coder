@@ -20,6 +20,15 @@ coder ssh [flags] <workspace>
 
 Specifies whether to emit SSH output over stdin/stdout.
 
+### --ssh-host-prefix
+
+|             |                                               |
+|-------------|-----------------------------------------------|
+| Type        | <code>string</code>                           |
+| Environment | <code>$CODER_CONFIGSSH_SSH_HOST_PREFIX</code> |
+
+Strip this prefix from the provided hostname to determine the workspace name.
+
 ### -A, --forward-agent
 
 |             |                                       |
