@@ -485,7 +485,7 @@ func (r *RootCmd) ssh() *serpent.Command {
 		{
 			Flag:        "ssh-host-prefix",
 			Env:         "CODER_SSH_SSH_HOST_PREFIX",
-			Description: "Strip this prefix from the provided hostname to determine the workspace name.",
+			Description: "Strip this prefix from the provided hostname to determine the workspace name. This is useful when used as part of an OpenSSH proxy command.",
 			Value:       serpent.StringOf(&hostPrefix),
 		},
 		{
