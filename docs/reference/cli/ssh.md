@@ -22,12 +22,12 @@ Specifies whether to emit SSH output over stdin/stdout.
 
 ### --ssh-host-prefix
 
-|             |                                               |
-|-------------|-----------------------------------------------|
-| Type        | <code>string</code>                           |
-| Environment | <code>$CODER_CONFIGSSH_SSH_HOST_PREFIX</code> |
+|             |                                         |
+|-------------|-----------------------------------------|
+| Type        | <code>string</code>                     |
+| Environment | <code>$CODER_SSH_SSH_HOST_PREFIX</code> |
 
-Strip this prefix from the provided hostname to determine the workspace name.
+Strip this prefix from the provided hostname to determine the workspace name. This is useful when used as part of an OpenSSH proxy command.
 
 ### -A, --forward-agent
 
