@@ -198,7 +198,9 @@ func (r *RootCmd) ssh() *serpent.Command {
 
 			namedWorkspace := strings.TrimPrefix(inv.Args[0], hostPrefix)
 			// Support "--" as a delimiter between owner and workspace name
-			namedWorkspace = strings.ReplaceAll(namedWorkspace, "--", "/")
+			namedWorkspace = strings.Replace(namedWorkspace, "--", "/", 1)
+			// Support "--" as a delimiter between workspace name and agent
+			namedWorkspace = strings.Replace(namedWorkspace, "--", ".", 1)
 
 			workspace, workspaceAgent, err := getWorkspaceAndAgent(ctx, inv, client, !disableAutostart, namedWorkspace)
 			if err != nil {
